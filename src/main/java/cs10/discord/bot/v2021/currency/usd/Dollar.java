@@ -5,6 +5,7 @@ import cs10.discord.bot.v2021.currency.Currency;
 import cs10.discord.bot.v2021.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -21,8 +22,8 @@ public class Dollar extends Currency {
     public static String getPrice() throws IOException {
         String body = IOUtils.readUrl(SOURCE_URL);
         Document doc = Jsoup.parse(body);
-        Elements elements = doc.body().children().select("div").select("span.price");
-        return elements.get(3).text();
+        Elements elements = doc.body().getElementById("sitio").getElementsByClass("venta");
+        return elements.get(0).getElementsByClass("val").text().replace("$","");
     }
 
     @Override

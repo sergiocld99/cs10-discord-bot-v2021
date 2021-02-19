@@ -1,5 +1,6 @@
 package test;
 
+import cs10.discord.bot.v2021.common.Dialog;
 import cs10.discord.bot.v2021.core.Init;
 
 import javax.security.auth.login.LoginException;
@@ -12,12 +13,14 @@ public class PresenceTest {
         try {
             Init.startBot();
         } catch (IOException e){
-            System.err.println("Unable to read token");
+            Dialog.error("Unable to read token");
+            System.exit(2);
         } catch (LoginException e){
             System.err.println("Unable to login: ");
             e.printStackTrace();
         } catch (InterruptedException e){
-            e.printStackTrace();
+            Dialog.error("Bot interrupted");
+            System.exit(3);
         } catch (AWTException e){
             System.err.println("Unable to set tray icon");
             System.exit(1);
