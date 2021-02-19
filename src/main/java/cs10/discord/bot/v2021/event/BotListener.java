@@ -1,5 +1,6 @@
 package cs10.discord.bot.v2021.event;
 
+import cs10.discord.bot.v2021.command.call.KillCommand;
 import cs10.discord.bot.v2021.command.preference.PreferenceCommand;
 import cs10.discord.bot.v2021.command.call.BitcoinCommand;
 import cs10.discord.bot.v2021.command.call.CallCommand;
@@ -26,6 +27,7 @@ public class BotListener extends ListenerAdapter {
     private void fillCommandsSet(){
         callCommands.add(new BitcoinCommand());
         callCommands.add(new DollarCommand());
+        callCommands.add(new KillCommand());
         preferenceCommands.add(new ChannelCommand());
         preferenceCommands.add(new VariationCommand());
     }
