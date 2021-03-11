@@ -1,8 +1,5 @@
 package cs10.discord.bot.v2021.currency;
 
-import cs10.discord.bot.v2021.common.Emoji;
-
-import java.io.IOException;
 import java.io.Serializable;
 
 public abstract class CurrencyItem implements Serializable {

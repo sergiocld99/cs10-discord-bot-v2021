@@ -1,5 +1,6 @@
 package cs10.discord.bot.v2021.command.call;
 
+import cs10.discord.bot.v2021.v1.common.Emoji;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class KillCommand implements CallCommand {
@@ -11,6 +12,7 @@ public class KillCommand implements CallCommand {
 
     @Override
     public void execute(TextChannel channel) {
-        channel.sendMessage("Adiós mundo cruel!... x_x").queue(message -> System.exit(0));
+        channel.sendMessage("Adiós mundo cruel!... " +
+                Emoji.DIED.getCodename()).queue(message -> System.exit(0));
     }
 }

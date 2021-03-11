@@ -1,4 +1,4 @@
-package cs10.discord.bot.v2021.desktop;
+package cs10.discord.bot.v2021.v1.init;
 
 import java.awt.*;
 
@@ -38,7 +38,7 @@ public class BotTrayIcon {
 
         trayIcon.setPopupMenu(popup);
 
-        trayIcon.displayMessage("Hi! Bot is ready",
+        trayIcon.displayMessage("Hi! Bot is ready - v0.01 R71",
                 "cs10 - Discord Bot v2021", TrayIcon.MessageType.INFO);
     }
 }

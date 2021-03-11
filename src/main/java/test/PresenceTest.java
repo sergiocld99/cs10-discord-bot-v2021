@@ -1,7 +1,7 @@
 package test;
 
-import cs10.discord.bot.v2021.common.Dialog;
-import cs10.discord.bot.v2021.core.Init;
+import cs10.discord.bot.v2021.v1.exception.Dialog;
+import cs10.discord.bot.v2021.v1.init.Init;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;

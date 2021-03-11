@@ -8,5 +8,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
  * Comandos que requieren modificar las preferencias de usuario (archivos de configuración)
  */
 public interface PreferenceCommand extends BotCommand {
+    String PREFIX = "&";
+
     void execute(UserPreferences preferences, GuildMessageReceivedEvent event);
 }

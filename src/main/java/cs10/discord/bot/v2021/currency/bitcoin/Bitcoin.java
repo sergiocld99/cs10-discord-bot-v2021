@@ -1,10 +1,8 @@
 package cs10.discord.bot.v2021.currency.bitcoin;
 
-import cs10.discord.bot.v2021.common.Emoji;
+import cs10.discord.bot.v2021.v1.common.Emoji;
 import cs10.discord.bot.v2021.currency.Currency;
-import cs10.discord.bot.v2021.currency.CurrencyUtils;
 import cs10.discord.bot.v2021.io.IOUtils;
-import net.dv8tion.jda.api.entities.TextChannel;
 import org.json.JSONObject;
 
 import java.io.IOException;

@@ -2,17 +2,17 @@ package cs10.discord.bot.v2021.currency.bitcoin;
 
 import cs10.discord.bot.v2021.currency.CurrencyItem;
 import cs10.discord.bot.v2021.currency.CurrencyUpdater;
-import cs10.discord.bot.v2021.model.GuildStatus;
+import cs10.discord.bot.v2021.v1.guild.GuildStatus;
 
 public class BitcoinUpdater extends CurrencyUpdater {
-    private static final int DEFAULT_RATE = 1;
+    private static final int DEFAULT_RATE = 15;
 
     public BitcoinUpdater(GuildStatus guildStatus) {
         this(guildStatus, DEFAULT_RATE);
     }
 
-    public BitcoinUpdater(GuildStatus guildStatus, int hourRate) {
-        super(guildStatus, hourRate, new Bitcoin());
+    private BitcoinUpdater(GuildStatus guildStatus, int minutesRate) {
+        super(guildStatus, minutesRate, new Bitcoin());
     }
 
     @Override

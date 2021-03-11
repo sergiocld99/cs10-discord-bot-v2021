@@ -1,4 +1,4 @@
-package cs10.discord.bot.v2021.common;
+package cs10.discord.bot.v2021.v1.exception;
 
 import javax.swing.*;
 

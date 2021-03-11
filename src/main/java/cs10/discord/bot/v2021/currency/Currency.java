@@ -1,6 +1,6 @@
 package cs10.discord.bot.v2021.currency;
 
-import cs10.discord.bot.v2021.common.Emoji;
+import cs10.discord.bot.v2021.v1.common.Emoji;
 
 import java.io.IOException;
 

@@ -1,10 +1,13 @@
-package cs10.discord.bot.v2021.model;
+package cs10.discord.bot.v2021.v1.guild;
 
 import cs10.discord.bot.v2021.currency.bitcoin.BitcoinUpdater;
 import cs10.discord.bot.v2021.currency.usd.BlueUpdater;
 import cs10.discord.bot.v2021.io.UserPreferences;
+import cs10.discord.bot.v2021.v1.subject.Subject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+
+import java.util.LinkedList;
 
 public class GuildStatus {
     private final Guild guild;
@@ -13,11 +16,28 @@ public class GuildStatus {
     // Quick access
     private TextChannel preferredChannel;
 
+    // R71 Update
+    private final LinkedList<Subject> subjects = new LinkedList<>();
+
     public GuildStatus(Guild guild, UserPreferences preferences) {
         this.guild = guild;
         this.preferences = preferences;
         if (preferences.getPreferredChannelId() != null) findPreferredChannel();
         scheduleUpdaters();
+
+        // R71 Update
+        readChannels(guild);
+        System.out.println(subjects.size() + " subjects for " + guild.getName());
+    }
+
+    private void readChannels(Guild guild){
+        for (TextChannel tc : guild.getTextChannels()){
+            String topic = tc.getTopic();
+            if (topic != null){
+                Subject subject = Subject.create(topic, tc);
+                if (subject != null) subjects.add(subject);
+            }
+        }
     }
 
     public void findPreferredChannel(){

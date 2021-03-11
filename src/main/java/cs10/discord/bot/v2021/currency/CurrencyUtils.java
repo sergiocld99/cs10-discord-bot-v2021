@@ -1,21 +1,19 @@
 package cs10.discord.bot.v2021.currency;
 
+import cs10.discord.bot.v2021.io.UserPreferences;
+
 import java.text.DecimalFormat;
 
 public class CurrencyUtils {
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    private int variationFilter;
+    private final UserPreferences preferences;
 
-    public CurrencyUtils(int variationFilter) {
-        this.variationFilter = variationFilter;
+    private int getVariationFilter(){
+        return preferences.getVariationFilter();
     }
 
-    public void setVariationFilter(int variationFilter) {
-        this.variationFilter = variationFilter;
-    }
-
-    public int getVariationFilter() {
-        return variationFilter;
+    public CurrencyUtils(UserPreferences preferences) {
+        this.preferences = preferences;
     }
 
     /**
@@ -31,7 +29,8 @@ public class CurrencyUtils {
     }
 
     public boolean matters(double percentage){
-        return Math.abs(percentage) > variationFilter;
+        if (percentage > 0) return percentage > (getVariationFilter() * 2);
+        return Math.abs(percentage) > getVariationFilter();
     }
 
     public static String twoDecimals(double number){

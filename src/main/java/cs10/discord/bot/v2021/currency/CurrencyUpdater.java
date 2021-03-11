@@ -1,8 +1,8 @@
 package cs10.discord.bot.v2021.currency;
 
-import cs10.discord.bot.v2021.common.Emoji;
+import cs10.discord.bot.v2021.v1.common.Emoji;
 import cs10.discord.bot.v2021.io.UserPreferences;
-import cs10.discord.bot.v2021.model.GuildStatus;
+import cs10.discord.bot.v2021.v1.guild.GuildStatus;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.io.IOException;
@@ -14,19 +14,19 @@ public abstract class CurrencyUpdater {
     private final GuildStatus guildStatus;
     private final CurrencyUtils currencyUtils;
     private final Currency currency;
-    private int hourRate;
+    private final int minutesRate;
 
-    public CurrencyUpdater(GuildStatus guildStatus, int hourRate, Currency currency) {
-        this.currencyUtils = new CurrencyUtils(guildStatus.getPreferences().getVariationFilter());
+    public CurrencyUpdater(GuildStatus guildStatus, int minutesRate, Currency currency) {
+        this.currencyUtils = new CurrencyUtils(guildStatus.getPreferences());
         this.guildStatus = guildStatus;
-        this.hourRate = hourRate;
+        this.minutesRate = minutesRate;
         this.currency = currency;
         runFixedRate();
     }
 
     private void runFixedRate(){
         ScheduledExecutorService s = Executors.newSingleThreadScheduledExecutor();
-        s.scheduleAtFixedRate(this::runOnce, 0, hourRate, TimeUnit.HOURS);
+        s.scheduleAtFixedRate(this::runOnce, 0, minutesRate, TimeUnit.MINUTES);
     }
 
     protected abstract CurrencyItem getPrevious();
@@ -75,14 +75,6 @@ public abstract class CurrencyUpdater {
         if (channel != null) channel.sendMessage(string).queue();
         else System.err.println("Preferred channel for " + guildStatus.getGuild().getName() +
                 " not found");
-    }
-
-    public void setHourRate(int hourRate) {
-        this.hourRate = hourRate;
-    }
-
-    public int getHourRate() {
-        return hourRate;
     }
 
     public UserPreferences getPreferences() {
