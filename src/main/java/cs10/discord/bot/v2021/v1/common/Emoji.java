@@ -7,7 +7,10 @@ public enum Emoji {
     GRINNING(":grinning:"), WINK(":wink:"),
     GOOD_LUCK("four_leaf_clover"), CALENDAR(":calendar:"),
     BELL(":bell:"), EXCUSE_ME(":face_with_raised_eyebrow:"),
-    DIED(":dizzy_face:"), BOOKS(":books:");
+    DIED(":dizzy_face:"), BOOKS(":books:"),
+    FAIL(":x:"), CHECK(":ballot_box_with_check:"),
+    CLOCK(":clock10:"), MISUNDERSTAND(":man_shrugging:"),
+    SUNGLASSES(":sunglasses:"), F(":regional_indicator_f:");
 
     private final String codename;
 

@@ -1,17 +1,18 @@
-package cs10.discord.bot.v2021.event.exam;
+package cs10.discord.bot.v2021.v1.exam;
 
-import cs10.discord.bot.v2021.v1.common.Emoji;
 import cs10.discord.bot.v2021.event.DateUtils;
 import cs10.discord.bot.v2021.event.Event;
 import cs10.discord.bot.v2021.event.InstantRelativeMsg;
+import cs10.discord.bot.v2021.v1.common.Emoji;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Exam extends Event implements Serializable {
     private final String topic;
 
-    public Exam(long timestamp, int duration, String topic){
-        super(timestamp, duration, InstantRelativeMsg.values());
+    public Exam(long timestamp, String channelId, String topic){
+        super(timestamp, 3, channelId, InstantRelativeMsg.values());
         this.topic = topic;
     }
 
@@ -32,5 +33,10 @@ public class Exam extends Event implements Serializable {
         }
 
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return DateUtils.format(new Date(getTimestamp())) + " - " + topic;
     }
 }

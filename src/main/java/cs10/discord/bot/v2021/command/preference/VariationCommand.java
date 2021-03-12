@@ -1,12 +1,13 @@
 package cs10.discord.bot.v2021.command.preference;
 
 import cs10.discord.bot.v2021.io.UserPreferences;
+import cs10.discord.bot.v2021.v1.listener.ListenerContext;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class VariationCommand implements PreferenceCommand {
 
     @Override
-    public void execute(UserPreferences preferences, GuildMessageReceivedEvent event) {
+    public ListenerContext execute(UserPreferences preferences, GuildMessageReceivedEvent event) {
         String[] params = event.getMessage().getContentDisplay().split(" ");
         String message;
 
@@ -23,6 +24,7 @@ public class VariationCommand implements PreferenceCommand {
         }
 
         event.getChannel().sendMessage(message).queue();
+        return null;
     }
 
     @Override

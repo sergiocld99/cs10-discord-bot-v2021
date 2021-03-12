@@ -2,9 +2,8 @@ package cs10.discord.bot.v2021.io;
 
 import cs10.discord.bot.v2021.currency.bitcoin.BitcoinItem;
 import cs10.discord.bot.v2021.currency.usd.DollarItem;
-import cs10.discord.bot.v2021.event.exam.Exam;
+import cs10.discord.bot.v2021.v1.exam.Exam;
 import cs10.discord.bot.v2021.event.reminder.Reminder;
-import cs10.discord.bot.v2021.v1.subject.Subject;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -15,10 +14,9 @@ public class UserPreferences implements Serializable {
     private String guildId, preferredChannelId;
     private int variationFilter = 3;
 
-    // February 19th Update
+    // R69 Update
     private LinkedList<Reminder> reminders;
     private LinkedList<Exam> exams;
-    private LinkedList<Subject> subjects;
 
     public UserPreferences() { }
 
@@ -90,22 +88,19 @@ public class UserPreferences implements Serializable {
         save();
     }
 
-    public void addSubject(Subject subject){
-        if (subjects == null) subjects = new LinkedList<>();
-        subjects.add(subject);
-        save();
-    }
-
     public LinkedList<Reminder> getReminders() {
+        if (reminders == null) reminders = new LinkedList<>();
         return reminders;
     }
 
     public LinkedList<Exam> getExams() {
+        if (exams == null) exams = new LinkedList<>();
         return exams;
     }
 
-    public LinkedList<Subject> getSubjects() {
-        return subjects;
+    public void clearExams(){
+        if (exams != null) exams.clear();
+        save();
     }
 
     public void save(){

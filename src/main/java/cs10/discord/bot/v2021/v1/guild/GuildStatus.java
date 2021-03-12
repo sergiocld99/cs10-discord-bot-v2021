@@ -3,6 +3,7 @@ package cs10.discord.bot.v2021.v1.guild;
 import cs10.discord.bot.v2021.currency.bitcoin.BitcoinUpdater;
 import cs10.discord.bot.v2021.currency.usd.BlueUpdater;
 import cs10.discord.bot.v2021.io.UserPreferences;
+import cs10.discord.bot.v2021.v1.notifier.BotNotifier;
 import cs10.discord.bot.v2021.v1.subject.Subject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -27,7 +28,7 @@ public class GuildStatus {
 
         // R71 Update
         readChannels(guild);
-        System.out.println(subjects.size() + " subjects for " + guild.getName());
+        BotNotifier.startClassTimeNotifier(subjects);
     }
 
     private void readChannels(Guild guild){

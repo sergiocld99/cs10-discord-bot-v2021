@@ -1,6 +1,7 @@
 package cs10.discord.bot.v2021.command.call;
 
 import cs10.discord.bot.v2021.command.BotCommand;
+import cs10.discord.bot.v2021.io.UserPreferences;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 /**
@@ -9,5 +10,5 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public interface CallCommand extends BotCommand {
     String PREFIX = "$";
 
-    void execute(TextChannel channel);
+    void execute(UserPreferences preferences, TextChannel channel);
 }

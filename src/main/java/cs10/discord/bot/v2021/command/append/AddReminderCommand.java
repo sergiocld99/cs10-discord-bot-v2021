@@ -3,6 +3,7 @@ package cs10.discord.bot.v2021.command.append;
 import cs10.discord.bot.v2021.v1.common.Emoji;
 import cs10.discord.bot.v2021.event.reminder.Reminder;
 import cs10.discord.bot.v2021.io.UserPreferences;
+import cs10.discord.bot.v2021.v1.listener.ListenerContext;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -16,7 +17,7 @@ public class AddReminderCommand implements AppendCommand {
     }
 
     @Override
-    public void execute(UserPreferences preferences, GuildMessageReceivedEvent event) {
+    public ListenerContext execute(UserPreferences preferences, GuildMessageReceivedEvent event) {
         String entryText = event.getMessage().getContentDisplay()
                 .replace(AppendCommand.PREFIX + getId(), "").trim();
 
@@ -33,13 +34,15 @@ public class AddReminderCommand implements AppendCommand {
             calendar.set(Calendar.MONTH, Integer.parseInt(MM)-1);
             calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hh));
             calendar.set(Calendar.MINUTE, Integer.parseInt(mm));
-            Reminder reminder = new Reminder(calendar.getTimeInMillis(), message);
+            Reminder reminder = new Reminder(calendar.getTimeInMillis(), preferences.getPreferredChannelId(), message);
             preferences.addReminder(reminder);
             event.getChannel().sendMessage(Emoji.BELL.getCodename() + " You have " +
                     preferences.getReminders().size() + " reminders in this server now").queue();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e){
             errorMsg(event.getChannel());
         }
+
+        return null;
     }
 
     private void errorMsg(TextChannel channel){

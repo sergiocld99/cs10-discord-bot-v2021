@@ -2,6 +2,7 @@ package cs10.discord.bot.v2021.command.preference;
 
 import cs10.discord.bot.v2021.command.BotCommand;
 import cs10.discord.bot.v2021.io.UserPreferences;
+import cs10.discord.bot.v2021.v1.listener.ListenerContext;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 /**
@@ -10,5 +11,5 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 public interface PreferenceCommand extends BotCommand {
     String PREFIX = "&";
 
-    void execute(UserPreferences preferences, GuildMessageReceivedEvent event);
+    ListenerContext execute(UserPreferences preferences, GuildMessageReceivedEvent event);
 }

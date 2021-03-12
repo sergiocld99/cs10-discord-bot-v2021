@@ -1,5 +1,6 @@
 package cs10.discord.bot.v2021.v1.subject;
 
+import cs10.discord.bot.v2021.v1.common.Emoji;
 import cs10.discord.bot.v2021.v1.common.Simplifier;
 import cs10.discord.bot.v2021.v1.time.Day;
 import cs10.discord.bot.v2021.v1.time.TimeOfDay;
@@ -9,6 +10,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Subject {
     private final TextChannel channel;
@@ -65,6 +69,18 @@ public class Subject {
         return s.startsWith("https://");
     }
 
+    public void startSchedulers(TimeOfWeek currentTimeOfWeek){
+        for (TimeOfWeek tw : scheduleTimes){
+            if (tw.getDayOfWeek() == currentTimeOfWeek.getDayOfWeek()){
+                int delay = tw.getTimeOfDay().getMinutesTo(currentTimeOfWeek.getTimeOfDay());
+                if (delay > 10) {
+                    ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                    service.schedule(new ClassTimeRunnable(10), delay-10, TimeUnit.MINUTES);
+                }
+            }
+        }
+    }
+
     public String getLink() {
         return link;
     }
@@ -79,5 +95,35 @@ public class Subject {
 
     public TextChannel getChannel() {
         return channel;
+    }
+
+
+    public class ClassTimeRunnable implements Runnable {
+        private final int nextAlarm;
+
+        public ClassTimeRunnable(int nextAlarm) {
+            this.nextAlarm = nextAlarm;
+        }
+
+        @Override
+        public void run() {
+            String message;
+
+            if (nextAlarm == 0){
+                message = Emoji.CALENDAR.getCodename() + " - The class is starting right now!";
+            } else {
+                message = Emoji.BELL.getCodename() + " - " + channel.getAsMention() +
+                        " in " + nextAlarm + " minutes";
+                if (link != null) message = message + "\n" + link;
+                scheduleNext();
+            }
+
+            channel.sendMessage(message).queue();
+        }
+
+        private void scheduleNext(){
+            ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+            service.schedule(new ClassTimeRunnable(0), nextAlarm, TimeUnit.MINUTES);
+        }
     }
 }

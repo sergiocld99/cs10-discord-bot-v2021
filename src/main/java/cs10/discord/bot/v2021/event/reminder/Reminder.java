@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class Reminder extends Event implements Serializable {
     private final String message;
 
-    public Reminder(long timestamp, String message){
-        super(timestamp, 0, InstantRelativeMsg.START);
+    public Reminder(long timestamp, String channelId, String message){
+        super(timestamp, 0, channelId, InstantRelativeMsg.START);
         this.message = message;
     }
 
